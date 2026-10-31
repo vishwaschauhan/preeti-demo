@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="theme-color" content="#0E1B24" />
+<title>Preeti Yadav — Soulpreneurs Transformation Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  /* ════════════════════════════════════════════════
+     DESIGN TOKENS
+     ════════════════════════════════════════════════ */
+  :root {
+    color-scheme: light;
+
+    /* ── Palette: "Heal" — from the blue door at dusk ──
+       Night stone for depth, cobalt door for action, lantern amber
+       for glow, rust brick for warmth, ivy for growth, parchment script. */
+    --parchment:    #F6F1E6;
+    --white:        #FFFDF8;
+    --stone-light:  #ECE4D4;
+    --night:        #0E1B24;
+    --cobalt:       #1D63A6;
+    --door-blue:    #1A5590;
+    --rust:         #A4592A;
+    --amber:        #F0A93C;
+    --ivy:          #4E6B2E;
+    --ink:          #14212A;
+    --stone:        #5A6770;
+    --mortar:       #E0D6C4;
+
+    /* Channels (for alpha blends) */
+    --ivory-rgb:      246 241 230;
+    --night-rgb:      14 27 36;
+    --cobalt-rgb:     29 99 166;
+    --rust-rgb:       164 89 42;
+    --amber-rgb:      240 169 60;
+
+    /* ── Semantic tokens ── */
+    --bg:             var(--parchment);
+    --surface:        var(--white);
+    --surface-2:      var(--stone-light);
+    --border:         var(--mortar);
+    --border-strong:  #CFC3AE;
+
+    --text:           var(--ink);        /* 14.6:1 on parchment */
+    --text-2:         #33424C;
+    --text-muted:     var(--stone);      /* 5.2:1 on parchment */
+    --text-muted-on-sand: #4F5C65;       /* 5.5:1 on stone-light */
+
+    --primary:        var(--night);      /* brand, dark surfaces */
+    --primary-hover:  #1B2D3A;
+    --action:         var(--cobalt);     /* buttons, links, active, focus — 5.5:1 */
+    --action-hover:   #174F86;
+    --action-tint:    #E3EDF7;
+
+    --accent:         var(--rust);       /* warmth */
+    --accent-ink:     #8E4A20;           /* rust for small text, 5.9:1 */
+    --accent-soft:    #E39A6A;           /* rust on night, 7.6:1 */
+    --highlight:      var(--amber);      /* lantern glow — never text on light */
+    --highlight-ink:  #8A5A0B;
+    --growth:         var(--ivy);
+
+    /* Washes — the door, brick, ivy and lamplight, softened */
+    --wash-cobalt:    #E3EDF7;
+    --wash-cobalt-2:  #C9DBEE;
+    --wash-rust:      #F5E6DA;
+    --wash-rust-2:    #EDD2BE;
+    --wash-rust-3:    #E2BB9F;
+    --wash-ivy:       #E6EEDC;
+    --wash-ivy-2:     #D2E0C2;
+    --wash-amber:     #FBEFD8;
+    --wash-amber-2:   #F5DDAE;
+
+    /* Festive palettes (opt-in via ?festive=diwali|holi) */
+    --gulal-pink:     #E58FB0;
+    --gulal-blue:     #7C8FD6;
+
+    --on-primary:     var(--parchment);
+    --on-primary-2:   rgb(var(--ivory-rgb) / .76);
+    --on-primary-3:   rgb(var(--ivory-rgb) / .14);
+
+    /* Craft details */
+    --band-paint:     rgb(var(--rust-rgb) / .8);
+    --pattern-band:   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='12'%3E%3Cpath fill-rule='evenodd' d='M12 1.5l4.5 4.5-4.5 4.5-4.5-4.5z M12 4.2l1.8 1.8-1.8 1.8-1.8-1.8z'/%3E%3Ccircle cx='0' cy='6' r='1.4'/%3E%3Ccircle cx='24' cy='6' r='1.4'/%3E%3C/svg%3E");
+    --pattern-jaali:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' fill='none' stroke='black' stroke-width='1'%3E%3Cpath d='M0 14L14 0L28 14L14 28Z'/%3E%3Ccircle cx='14' cy='14' r='2.4'/%3E%3Ccircle cx='0' cy='0' r='2.4'/%3E%3Ccircle cx='28' cy='0' r='2.4'/%3E%3Ccircle cx='0' cy='28' r='2.4'/%3E%3Ccircle cx='28' cy='28' r='2.4'/%3E%3C/svg%3E");
+    --texture-grain:  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32  0 0 0 0 .24  0 0 0 0 .16  0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url%28%23n%29'/%3E%3C/svg%3E");
+
+    /* Type — Latin first, then Indic scripts so translations render natively */
+    --indic: 'Noto Sans Devanagari', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Gurmukhi',
+             'Noto Sans Tamil', 'Noto Sans Telugu', 'Noto Sans Kannada', 'Noto Sans Malayalam',
+             'Nirmala UI', 'Kohinoor Devanagari', 'Tamil Sangam MN';
+    --font-display: 'Plus Jakarta Sans', var(--indic), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --sans:         'Inter', var(--indic), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Spacing — 4px base */
+    --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+    --s6: 32px; --s7: 48px; --s8: 64px; --s9: 96px; --s10: 128px;
+
+    /* Radii */
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 24px;
+    --r-pill: 999px;
+
+    /* Elevation */
+    --shadow-1: 0 1px 2px rgb(var(--night-rgb) / .04), 0 1px 1px rgb(var(--night-rgb) / .03);
+    --shadow-2: 0 2px 4px rgb(var(--night-rgb) / .04), 0 12px 32px -8px rgb(var(--night-rgb) / .14);
+    --shadow-3: 0 4px 8px rgb(var(--night-rgb) / .05), 0 32px 64px -16px rgb(var(--night-rgb) / .22);
+    --shadow-action: 0 1px 0 rgb(255 255 255 / .16) inset, 0 6px 16px -6px rgb(var(--cobalt-rgb) / .5);
+    --shadow-action-hover: 0 1px 0 rgb(255 255 255 / .16) inset, 0 10px 24px -8px rgb(var(--cobalt-rgb) / .55);
+
+    /* Motion */
+    --ease: cubic-bezier(.2, .7, .2, 1);
+    --fast: 160ms;
+    --base: 280ms;
+
+    /* Layout */
+    --gutter: clamp(20px, 5vw, 48px);
+    --max: 1180px;
+    --nav-h: 68px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  * { margin: 0; }
+
+  html { scroll-behavior: smooth; scroll-padding-top: calc(var(--nav-h) + 8px); -webkit-text-size-adjust: 100%; }
+
+  body {
+    font-family: var(--sans);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--text-2);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  /* Night context (nav, hero): same components, lamplit-dark tokens */
+  .on-night {
+    --text:          var(--parchment);
+    --text-2:        rgb(var(--ivory-rgb) / .82);
+    --text-muted:    rgb(var(--ivory-rgb) / .66);
+    --border:        rgb(var(--ivory-rgb) / .14);
+    --border-strong: rgb(var(--ivory-rgb) / .26);
+    --surface:       rgb(var(--ivory-rgb) / .07);
+    --accent-ink:    var(--accent-soft);
+  }
+  .on-night :is(.display, .h2) em { color: var(--highlight); background: none; }
+  .on-night .eyebrow { color: var(--highlight); }
+  .on-night .brand b, .on-night .brand-mark { color: var(--text); }
+  .on-night .brand i { color: var(--highlight); }
+  .on-night .nav-links a:hover { background: rgb(var(--ivory-rgb) / .08); }
+  .on-night .nav-links a[aria-current="true"] { color: var(--text); }
+  .on-night .nav-links a::after { background: var(--highlight); }
+  .on-night .eyebrow::before { background: var(--accent-soft); }
+  .on-night .btn-ghost:hover { --fg: var(--text); border-color: var(--text-muted); }
+  .on-night .btn-primary { box-shadow: 0 0 0 1px rgb(var(--ivory-rgb) / .14) inset, 0 8px 24px -8px rgb(var(--cobalt-rgb) / .8); }
+
+  /* Handmade-paper grain over everything (very faint) */
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 3; pointer-events: none;
+    background-image: var(--texture-grain);
+    mix-blend-mode: multiply; opacity: .7;
+  }
+
+  /* Indic scripts: no tracking or caps, taller lines for matras */
+  :is(:lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(pa), :lang(ta), :lang(te), :lang(kn), :lang(ml)) {
+    --tracking-caps: 0;
+    line-height: 1.85;
+  }
+  :is(:lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(pa), :lang(ta), :lang(te), :lang(kn), :lang(ml)) :is(.display, .h2, .h3) { letter-spacing: 0; line-height: 1.35; }
+  :is(:lang(hi), :lang(mr), :lang(bn), :lang(gu), :lang(pa), :lang(ta), :lang(te), :lang(kn), :lang(ml)) .eyebrow { text-transform: none; }
+
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  ul, ol { list-style: none; padding: 0; }
+
+  :focus-visible {
+    outline: 2px solid var(--action);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-night :focus-visible, .footer :focus-visible { outline-color: var(--highlight); }
+
+  .skip {
+    position: absolute; left: var(--s4); top: -100px; z-index: 200;
+    background: var(--text); color: var(--bg);
+    padding: var(--s3) var(--s4); border-radius: var(--r-sm);
+    font-weight: 500; text-decoration: none;
+  }
+  .skip:focus { top: var(--s4); }
+
+  .icon { width: 20px; height: 20px; flex-shrink: 0; stroke: currentColor; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+  .icon-sm { width: 16px; height: 16px; }
+
+  .container { width: 100%; max-width: var(--max); margin-inline: auto; padding-inline: var(--gutter); }
+
+  /* ════════════════════════════════════════════════
+     TYPE
+     ════════════════════════════════════════════════ */
+  .display, .h2, .h3 {
+    font-family: var(--font-display);
+    color: var(--text);
+    letter-spacing: -.02em;
+  }
+  .display {
+    font-size: clamp(2.5rem, 5.8vw, 4.5rem);
+    font-weight: 700;
+    line-height: 1.06;
+    letter-spacing: -.035em;
+    text-wrap: balance;
+  }
+  .h2 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    font-weight: 650;
+    line-height: 1.12;
+    letter-spacing: -.03em;
+    text-wrap: balance;
+  }
+  .h3 {
+    font-size: 1.1875rem;
+    font-weight: 650;
+    line-height: 1.3;
+    letter-spacing: -.01em;
+  }
+  .display em, .h2 em {
+    font-style: italic;
+    font-weight: 600;
+    color: var(--primary);
+    background: linear-gradient(transparent 66%, rgb(var(--amber-rgb) / .5) 66%, rgb(var(--amber-rgb) / .5) 90%, transparent 90%);
+    -webkit-box-decoration-break: clone; box-decoration-break: clone;
+    padding-inline: .04em;
+  }
+  ::selection { background: rgb(var(--amber-rgb) / .45); color: var(--text); }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: var(--s2);
+    font-size: .75rem; font-weight: 600;
+    letter-spacing: var(--tracking-caps, .14em); text-transform: uppercase;
+    color: var(--accent-ink);
+  }
+  .eyebrow::before {
+    content: ''; width: 20px; height: 2px; border-radius: 2px; background: var(--accent);
+  }
+
+  .lede { font-size: clamp(1.0625rem, 1.4vw, 1.1875rem); line-height: 1.65; color: var(--text-2); text-wrap: pretty; }
+  .muted { color: var(--text-muted); }
+
+  /* ════════════════════════════════════════════════
+     BUTTONS
+     ════════════════════════════════════════════════ */
+  .btn {
+    --bg: var(--primary); --fg: var(--on-primary);
+    display: inline-flex; align-items: center; justify-content: center; gap: var(--s2);
+    min-height: 48px;
+    padding: 0 var(--s5);
+    border: 1px solid transparent;
+    border-radius: var(--r-pill);
+    background: var(--bg); color: var(--fg);
+    font: 500 .9375rem/1 var(--sans);
+    letter-spacing: -.005em;
+    text-decoration: none;
+    cursor: pointer;
+    white-space: normal; text-align: center; line-height: 1.2;
+    padding-block: 10px;
+    transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease),
+                border-color var(--fast) var(--ease), transform var(--fast) var(--ease),
+                box-shadow var(--base) var(--ease);
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn .icon { width: 18px; height: 18px; transition: transform var(--base) var(--ease); }
+  .btn:hover { transform: translateY(-1px); }
+  .btn:active { transform: translateY(0) scale(.98); transition-duration: 80ms; }
+
+  .btn-primary { --bg: var(--action); --fg: var(--white); box-shadow: var(--shadow-action); }
+  .btn-primary:hover { --bg: var(--action-hover); box-shadow: var(--shadow-action-hover); }
+  .btn-primary:hover .icon-trail { transform: translateX(3px); }
+
+  .btn-dark { --bg: var(--primary); --fg: var(--on-primary); }
+  .btn-dark:hover { --bg: var(--primary-hover); }
+
+  .btn-ghost { --bg: transparent; --fg: var(--text); border-color: var(--border-strong); }
+  .btn-ghost:hover { --bg: var(--surface); border-color: var(--action); --fg: var(--action); }
+  .btn-ghost:hover .icon-trail { transform: translateX(3px); }
+
+  .btn-light { --bg: var(--on-primary); --fg: var(--primary); }
+  .btn-light { box-shadow: 0 8px 24px -10px rgb(0 0 0 / .35); }
+  .btn-light:hover { --bg: var(--white); }
+
+  .btn-lg { min-height: 56px; padding: 0 var(--s6); font-size: 1rem; }
+  .btn-sm { min-height: 40px; padding: 0 var(--s4); font-size: .875rem; }
+
+  .link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-weight: 500; color: var(--text);
+    text-decoration: none;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size var(--base) var(--ease), color var(--fast);
+    padding-bottom: 2px;
+  }
+  .link:hover { background-size: 100% 1px; color: var(--action); }
+
+  /* ════════════════════════════════════════════════
+     NAV
+     ════════════════════════════════════════════════ */
+  .nav {
+    position: fixed; inset: 0 0 auto 0; z-index: 100;
+    height: var(--nav-h);
+    background: rgb(var(--night-rgb) / .78);
+    backdrop-filter: saturate(1.4) blur(16px);
+    -webkit-backdrop-filter: saturate(1.4) blur(16px);
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--base) var(--ease), background-color var(--base) var(--ease);
+  }
+  .nav.scrolled { border-bottom-color: var(--border); background: rgb(var(--night-rgb) / .92); }
+  .nav-inner { height: 100%; display: flex; align-items: center; gap: var(--s5); }
+
+  .brand {
+    display: inline-flex; align-items: center; gap: 10px;
+    text-decoration: none; color: var(--text);
+    font-family: var(--font-display); font-size: 1.125rem; font-weight: 700;
+    letter-spacing: -.01em; white-space: nowrap;
+  }
+  .brand-mark { width: 30px; height: 30px; color: var(--primary); flex-shrink: 0; }
+  .brand b { font-weight: 700; color: var(--primary); }
+  .brand i { font-style: italic; font-weight: 500; color: var(--accent-ink); }
+
+  .nav-inner > nav { margin-left: auto; }
+  .nav-links { display: flex; gap: var(--s1); }
+  .nav-links a {
+    position: relative;
+    display: block;
+    padding: 8px 12px;
+    font-size: .9rem; font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: var(--r-pill);
+    transition: color var(--fast) var(--ease), background-color var(--fast) var(--ease);
+  }
+  .nav-links a:hover { color: var(--text); background: rgb(var(--cobalt-rgb) / .06); }
+  .nav-links a[aria-current="true"] { color: var(--action); }
+  .nav-links a::after {
+    content: ''; position: absolute; left: 50%; bottom: 2px;
+    width: 4px; height: 4px; border-radius: 50%;
+    background: var(--action);
+    transform: translateX(-50%) scale(0);
+    transition: transform var(--base) var(--ease);
+  }
+  .nav-links a[aria-current="true"]::after { transform: translateX(-50%) scale(1); }
+
+  .nav-cta { margin-left: var(--s2); }
+
+  .burger {
+    display: none;
+    margin-left: auto;
+    width: 44px; height: 44px;
+    align-items: center; justify-content: center;
+    border: 1px solid var(--border-strong); border-radius: 50%;
+    background: var(--surface); color: var(--text);
+    cursor: pointer;
+    transition: background-color var(--fast);
+  }
+  .burger:active { background: var(--surface-2); }
+  .burger .i-close { display: none; }
+  .burger[aria-expanded="true"] .i-open { display: none; }
+  .burger[aria-expanded="true"] .i-close { display: block; }
+
+  .sheet {
+    position: fixed; inset: var(--nav-h) 0 0 0; z-index: 99;
+    background: var(--bg);
+    padding: var(--s5) var(--gutter) calc(var(--s6) + env(safe-area-inset-bottom));
+    display: flex; flex-direction: column;
+    opacity: 0; visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--base) var(--ease), transform var(--base) var(--ease), visibility 0s linear var(--base);
+  }
+  .sheet.open { opacity: 1; visibility: visible; transform: none; transition-delay: 0s; }
+  .sheet ul { display: flex; flex-direction: column; }
+  .sheet li { border-bottom: 1px solid var(--border); }
+  .sheet a.sheet-link {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 18px 0;
+    font-family: var(--font-display); font-size: 1.5rem; font-weight: 650; letter-spacing: -.02em;
+    color: var(--text); text-decoration: none;
+  }
+  .sheet a.sheet-link .icon { color: var(--text-muted); }
+  .sheet .btn { margin-top: auto; width: 100%; }
+  .sheet.open li { animation: sheetIn 420ms var(--ease) both; }
+  .sheet.open li:nth-child(2) { animation-delay: 30ms; }
+  .sheet.open li:nth-child(3) { animation-delay: 60ms; }
+  .sheet.open li:nth-child(4) { animation-delay: 90ms; }
+  .sheet.open li:nth-child(5) { animation-delay: 120ms; }
+  @keyframes sheetIn { from { opacity: 0; transform: translateY(8px); } }
+
+  /* ════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    padding-top: calc(var(--nav-h) + clamp(var(--s6), 6vw, var(--s9)));
+    padding-bottom: clamp(var(--s8), 8vw, var(--s10));
+    color: var(--text-2);
+    background:
+      radial-gradient(30% 28% at 76% 8%, rgb(var(--amber-rgb) / .22), transparent 70%),
+      radial-gradient(55% 60% at 76% 55%, rgb(var(--cobalt-rgb) / .32), transparent 70%),
+      radial-gradient(40% 50% at 0% 100%, rgb(var(--rust-rgb) / .14), transparent 70%),
+      var(--night);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.08fr .92fr;
+    align-items: center;
+    gap: clamp(var(--s7), 6vw, var(--s9));
+  }
+  .hero .eyebrow { margin-bottom: var(--s5); }
+  .hero .display { margin-bottom: var(--s5); }
+  .hero .lede { max-width: 30rem; margin-bottom: var(--s6); }
+  .hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); }
+
+  .trust {
+    display: flex; flex-wrap: wrap; align-items: stretch;
+    margin-top: var(--s7);
+    padding-top: var(--s5);
+    border-top: 1px solid var(--border);
+    max-width: 30rem;
+  }
+  .trust-item { flex: 1 1 0; min-width: 0; padding-right: var(--s4); display: flex; flex-direction: column-reverse; justify-content: flex-end; }
+  .trust-item + .trust-item { padding-left: var(--s4); border-left: 1px solid var(--border); }
+  .trust-num {
+    font-family: var(--font-display); font-size: clamp(1.75rem, 3vw, 2.125rem); font-weight: 700;
+    color: var(--text); line-height: 1; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums;
+  }
+  .trust-num sup { font-size: .55em; color: var(--highlight); top: -.7em; margin-left: 1px; }
+  .trust-label { margin-top: var(--s2); font-size: .8125rem; color: var(--text-muted); line-height: 1.35; }
+
+  .portrait {
+    position: relative;
+    width: min(100%, 440px);
+    margin-inline: auto;
+  }
+  .portrait-arch {
+    position: absolute; inset: -14px -14px 14px 14px;
+    border: 1.5px solid rgb(var(--amber-rgb) / .38);
+    border-radius: 999px 999px var(--r-lg) var(--r-lg);
+    pointer-events: none;
+  }
+  .portrait-frame {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: 999px 999px var(--r-lg) var(--r-lg);
+    overflow: hidden;
+    background: linear-gradient(180deg, #3A8BD0 0%, var(--cobalt) 45%, var(--door-blue) 75%, #123E6B 100%);
+    box-shadow: 0 30px 80px -20px rgb(0 0 0 / .6), 0 0 0 1px rgb(var(--ivory-rgb) / .08);
+  }
+  .portrait-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+  .portrait::before {
+    content: ''; position: absolute; left: 50%; top: -34px; z-index: 1;
+    width: 14px; height: 20px; border-radius: 7px 7px 4px 4px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle at 50% 60%, #FFE2A6, var(--amber) 55%, #B9741C);
+    box-shadow: 0 0 18px 6px rgb(var(--amber-rgb) / .45), 0 0 60px 24px rgb(var(--amber-rgb) / .18);
+  }
+  .portrait-sun {
+    position: absolute; left: 50%; top: 22%;
+    width: 62%; aspect-ratio: 1; border-radius: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgb(var(--amber-rgb) / .28), rgb(var(--amber-rgb) / 0) 68%);
+  }
+  .portrait-tag {
+    --text: var(--ink); --text-muted: var(--stone);
+    position: absolute; left: -12px; bottom: var(--s6);
+    display: flex; align-items: center; gap: var(--s3);
+    padding: 10px 16px 10px 10px;
+    background: rgb(255 255 255 / .94);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-2);
+  }
+  .portrait-tag-icon {
+    width: 36px; height: 36px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--action-tint); color: var(--action);
+  }
+  .portrait-tag-text strong { display: block; font-size: .875rem; font-weight: 600; color: var(--text); line-height: 1.2; }
+  .portrait-tag-text span { display: block; font-size: .75rem; color: var(--text-muted); line-height: 1.3; }
+
+  /* ════════════════════════════════════════════════
+     SECTION SHELL
+     ════════════════════════════════════════════════ */
+  .section { padding-block: clamp(var(--s8), 10vw, var(--s10)); }
+  .section-head { max-width: 40rem; margin-bottom: clamp(var(--s7), 6vw, var(--s8)); }
+  .section-head.center { margin-inline: auto; text-align: center; }
+  .section-head .eyebrow { margin-bottom: var(--s4); }
+  .section-head .lede { margin-top: var(--s4); }
+
+  /* ════════════════════════════════════════════════
+     OUTCOMES (What we help you achieve)
+     ════════════════════════════════════════════════ */
+  .outcomes { background: var(--bg); }
+  .outcome-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--s4);
+  }
+  .outcome {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    padding: var(--s6) var(--s5) var(--s5);
+    box-shadow: var(--shadow-1);
+  }
+  .outcome-icon {
+    width: 44px; height: 44px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: var(--wash-cobalt); color: var(--primary);
+    margin-bottom: var(--s6);
+  }
+  .outcome .h3 { margin-bottom: var(--s2); }
+  .outcome p { font-size: .9375rem; line-height: 1.6; color: var(--text-muted); }
+
+  /* ════════════════════════════════════════════════
+     FOCUS AREAS (dark)
+     ════════════════════════════════════════════════ */
+  .focus {
+    background: var(--primary);
+    color: var(--on-primary-2);
+    position: relative;
+    overflow: hidden;
+  }
+  .focus::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(50% 60% at 0% 0%, rgb(var(--amber-rgb) / .1), transparent 70%),
+      radial-gradient(45% 55% at 100% 100%, rgb(var(--cobalt-rgb) / .35), transparent 70%);
+  }
+  .focus::after, .contact-card::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: linear-gradient(115deg, rgb(var(--ivory-rgb) / .09), rgb(var(--ivory-rgb) / .02) 60%);
+    -webkit-mask: var(--pattern-jaali) repeat 0 0 / 28px 28px;
+            mask: var(--pattern-jaali) repeat 0 0 / 28px 28px;
+  }
+  .focus .container { position: relative; }
+  .focus-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    gap: clamp(var(--s7), 6vw, var(--s9));
+    align-items: start;
+  }
+  .focus-head { position: sticky; top: calc(var(--nav-h) + var(--s6)); }
+  .focus .h2 { color: var(--on-primary); }
+  .focus .h2 em, .contact .h2 em { color: var(--highlight); background: none; }
+  .focus .eyebrow { color: var(--highlight); margin-bottom: var(--s4); }
+  .focus .eyebrow::before, .contact .eyebrow::before { background: var(--accent-soft); }
+  .focus .lede { color: var(--on-primary-2); margin-top: var(--s4); margin-bottom: var(--s6); }
+
+  .focus-list { counter-reset: f; border-top: 1px solid var(--on-primary-3); }
+  .focus-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: var(--s4);
+    padding: var(--s5) 0;
+    border-bottom: 1px solid var(--on-primary-3);
+  }
+  .focus-num {
+    font-family: var(--font-display); font-weight: 600;
+    font-size: 1.5rem; line-height: 1.2;
+    color: var(--accent-soft);
+    font-variant-numeric: tabular-nums;
+  }
+  .focus-item .h3 { color: var(--on-primary); margin-bottom: 6px; font-size: 1.1875rem; }
+  .focus-item p { font-size: .9375rem; line-height: 1.6; }
+
+  /* ════════════════════════════════════════════════
+     COACH
+     ════════════════════════════════════════════════ */
+  .coach { background: var(--surface-2); --text-muted: var(--text-muted-on-sand); position: relative; }
+  .coach-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(var(--s7), 7vw, var(--s10));
+    align-items: center;
+  }
+  .coach-media { position: relative; padding-bottom: var(--s6); }
+  .coach-photo {
+    aspect-ratio: 4 / 5;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    background: var(--surface-2);
+    box-shadow: var(--shadow-3);
+  }
+  .coach-photo img { width: 100%; height: 100%; object-fit: cover; }
+  .quote-card {
+    position: absolute; right: calc(-1 * var(--s5)); bottom: 0;
+    max-width: 280px;
+    padding: var(--s5);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-2);
+  }
+  .quote-card .icon { color: var(--accent); width: 22px; height: 22px; margin-bottom: var(--s3); }
+  .quote-card p {
+    font-family: var(--font-display); font-style: italic; font-weight: 500;
+    font-size: 1.125rem; line-height: 1.4; color: var(--text);
+    letter-spacing: -.005em;
+  }
+
+  .coach-body .eyebrow { margin-bottom: var(--s4); }
+  .coach-body .h2 { margin-bottom: var(--s2); }
+  .coach-role { font-size: .9375rem; color: var(--text-muted); margin-bottom: var(--s6); }
+  .coach-body p.copy { color: var(--text-2); margin-bottom: var(--s4); max-width: 34rem; text-wrap: pretty; }
+  .coach-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s5); margin-top: var(--s6); }
+
+  .certs { margin-top: var(--s7); padding-top: var(--s5); border-top: 1px solid var(--border-strong); }
+  .certs-label {
+    display: flex; align-items: center; gap: var(--s2);
+    font-size: .8125rem; font-weight: 500; color: var(--text-muted);
+    margin-bottom: var(--s4);
+  }
+  .certs-label .icon { color: var(--action); }
+  .certs-row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: var(--s2); max-width: 34rem; }
+  .cert {
+    aspect-ratio: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 6px;
+    display: grid; place-items: center;
+  }
+  .cert img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* ════════════════════════════════════════════════
+     JOURNEY
+     ════════════════════════════════════════════════ */
+  .journey { background: var(--bg); }
+  .journey-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s5); }
+  .stage {
+    display: flex; flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-1);
+  }
+  .stage-media {
+    position: relative;
+    aspect-ratio: 16 / 11;
+    background: var(--surface-2);
+    overflow: hidden;
+  }
+  .stage-media img { width: 100%; height: 100%; object-fit: cover; }
+  .stage-step {
+    position: absolute; left: var(--s4); top: var(--s4);
+    padding: 6px 12px;
+    background: rgb(255 255 255 / .92);
+    backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+    border-radius: var(--r-pill);
+    font-size: .75rem; font-weight: 600; letter-spacing: var(--tracking-caps, .08em); text-transform: uppercase;
+    color: var(--text);
+  }
+  .stage-body { padding: var(--s5) var(--s5) var(--s6); }
+  .stage .h3 { margin-bottom: var(--s4); font-size: 1.3125rem; }
+  .checks { display: flex; flex-direction: column; gap: var(--s3); }
+  .checks li { display: flex; gap: var(--s3); font-size: .9375rem; line-height: 1.5; color: var(--text-2); }
+  .check {
+    width: 20px; height: 20px; flex-shrink: 0; margin-top: 1px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--wash-ivy); color: var(--growth);
+  }
+  .check .icon { width: 12px; height: 12px; stroke-width: 2.5; }
+  .journey-cta { display: flex; flex-direction: column; align-items: center; gap: var(--s3); margin-top: var(--s8); text-align: center; }
+
+  /* ════════════════════════════════════════════════
+     CONTACT
+     ════════════════════════════════════════════════ */
+  .contact { background: var(--bg); padding-top: 0; }
+  .contact-card {
+    position: relative; overflow: hidden;
+    background: var(--primary);
+    color: var(--on-primary-2);
+    border-radius: clamp(var(--r-lg), 3vw, 36px);
+    padding: clamp(var(--s8), 9vw, var(--s10)) var(--s5);
+    text-align: center;
+  }
+  .contact-card::before {
+    content: ''; position: absolute; left: 50%; bottom: -60%;
+    width: 120%; aspect-ratio: 2 / 1;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    background: radial-gradient(closest-side, rgb(var(--amber-rgb) / .2), transparent);
+    pointer-events: none;
+  }
+  .contact-inner { position: relative; max-width: 36rem; margin-inline: auto; }
+  .contact-mark { display: block; width: 48px; height: 48px; color: var(--on-primary); margin: 0 auto var(--s5); }
+  .contact .eyebrow { color: var(--highlight); margin-bottom: var(--s4); }
+  .contact .h2 { color: var(--on-primary); }
+  .contact .lede { color: var(--on-primary-2); margin-top: var(--s5); }
+  .contact-actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: var(--s5); margin-top: var(--s7); }
+  .contact .link { color: var(--on-primary); }
+  .contact .link:hover { color: var(--highlight); }
+
+  /* ════════════════════════════════════════════════
+     FOOTER
+     ════════════════════════════════════════════════ */
+  .footer { background: var(--bg); color: var(--text-muted); padding-block: var(--s8) calc(var(--s6) + env(safe-area-inset-bottom)); }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr repeat(3, 1fr); gap: var(--s7); }
+  .footer-brand p { margin-top: var(--s4); font-size: .9375rem; max-width: 22rem; }
+  .socials { display: flex; gap: var(--s2); margin-top: var(--s5); }
+  .socials a {
+    width: 40px; height: 40px;
+    display: grid; place-items: center;
+    border: 1px solid var(--border-strong); border-radius: 50%;
+    color: var(--text-2);
+    transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease), border-color var(--fast) var(--ease), transform var(--fast) var(--ease);
+  }
+  .socials a:hover { background: var(--action); color: var(--white); border-color: var(--action); transform: translateY(-1px); }
+  .socials .icon { width: 18px; height: 18px; }
+  .footer h2 {
+    font-family: var(--sans); font-size: .75rem; font-weight: 600;
+    letter-spacing: var(--tracking-caps, .12em); text-transform: uppercase;
+    color: var(--text); margin-bottom: var(--s4);
+  }
+  .footer ul { display: flex; flex-direction: column; gap: var(--s1); }
+  .footer ul a {
+    display: inline-block; padding: 4px 0;
+    font-size: .9375rem; color: var(--text-muted); text-decoration: none;
+    transition: color var(--fast);
+  }
+  .footer ul a:hover { color: var(--action); }
+  .footer-bottom {
+    display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s3);
+    margin-top: var(--s8); padding-top: var(--s5);
+    border-top: 1px solid var(--border);
+    font-size: .8125rem;
+  }
+  .footer-bottom .made { display: inline-flex; align-items: center; gap: 6px; }
+  .footer-bottom .made svg { width: 14px; height: 14px; color: var(--primary); }
+
+
+  /* ════════════════════════════════════════════════
+     IMAGE FALLBACKS — if a remote image fails, show a calm placeholder
+     ════════════════════════════════════════════════ */
+  .no-img > img { display: none; }
+  .fallback { position: absolute; inset: 0; display: grid; place-items: center; color: rgb(var(--night-rgb) / .6); }
+  .portrait-frame .fallback { color: rgb(var(--ivory-rgb) / .85); }
+  .fallback svg { width: 34%; max-width: 120px; height: auto; aspect-ratio: 1; stroke: currentColor; fill: none; }
+  .portrait-frame .fallback svg { width: 38%; max-width: 150px; }
+  .coach-photo { position: relative; }
+  .coach-photo.no-img { background: radial-gradient(70% 60% at 50% 35%, var(--wash-amber), var(--wash-rust-2)); }
+  .stage-media.no-img { background: radial-gradient(80% 90% at 30% 20%, var(--wash-rust), var(--wash-rust-2)); }
+  .stage:nth-child(2) .stage-media.no-img { background: radial-gradient(80% 90% at 70% 20%, var(--wash-amber), var(--wash-amber-2)); }
+  .stage:nth-child(3) .stage-media.no-img { background: radial-gradient(80% 90% at 50% 10%, var(--wash-cobalt), var(--wash-cobalt-2)); }
+  .stage-media .fallback svg { width: 22%; }
+  .cert { position: relative; }
+  .cert.no-img .fallback { color: var(--action); }
+  .cert.no-img .fallback svg { width: 44%; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; }
+
+
+  /* ════════════════════════════════════════════════
+     CRAFT DETAILS — block-print band, jaali, washes
+     ════════════════════════════════════════════════ */
+  .band { position: relative; height: 22px; background: var(--bg); }
+  .band::before {
+    content: ''; position: absolute; inset: 2px 0;
+    border-block: 1px solid rgb(var(--night-rgb) / .12);
+  }
+  .band::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 5px; height: 12px;
+    background: var(--band-paint);
+    -webkit-mask: var(--pattern-band) repeat-x center / 24px 12px;
+            mask: var(--pattern-band) repeat-x center / 24px 12px;
+  }
+  .footer .band { margin-top: calc(-1 * var(--s8)); margin-bottom: var(--s7); }
+
+  .portrait-frame::before {
+    content: ''; position: absolute; inset: 0; pointer-events: none;
+    background: var(--parchment); opacity: .08;
+    -webkit-mask: var(--pattern-jaali) repeat center / 28px 28px;
+            mask: var(--pattern-jaali) repeat center / 28px 28px;
+  }
+  .focus .container, .contact-inner { z-index: 1; }
+
+  .outcome:nth-child(2) .outcome-icon { background: var(--wash-rust); color: var(--accent-ink); }
+  .outcome:nth-child(3) .outcome-icon { background: var(--wash-ivy); color: var(--action); }
+  .outcome:nth-child(4) .outcome-icon { background: var(--wash-amber); color: var(--highlight-ink); }
+  .outcome { border-top: 3px solid transparent; background-clip: padding-box; }
+  .outcome:nth-child(1) { box-shadow: var(--shadow-1), inset 0 3px 0 var(--wash-cobalt-2); }
+  .outcome:nth-child(2) { box-shadow: var(--shadow-1), inset 0 3px 0 var(--wash-rust-2); }
+  .outcome:nth-child(3) { box-shadow: var(--shadow-1), inset 0 3px 0 var(--wash-ivy-2); }
+  .outcome:nth-child(4) { box-shadow: var(--shadow-1), inset 0 3px 0 var(--wash-amber-2); }
+
+  /* ── Festive (opt-in): ?festive=diwali or ?festive=holi ── */
+  .festive-note { display: none; }
+  [data-festive] .festive-note {
+    display: inline-flex; align-items: center; gap: var(--s2);
+    margin-bottom: var(--s4); padding: 6px 14px 6px 8px;
+    border-radius: var(--r-pill);
+    background: var(--surface); border: 1px solid var(--border);
+    font-size: .8125rem; font-weight: 500; color: var(--text);
+    box-shadow: var(--shadow-1);
+  }
+  .festive-dot { width: 20px; height: 20px; border-radius: 50%; background: var(--band-paint); }
+  [data-festive="diwali"] {
+    --band-paint: linear-gradient(90deg, var(--amber), var(--rust), var(--amber));
+  }
+  [data-festive="diwali"] .hero {
+    background:
+      radial-gradient(35% 32% at 76% 8%, rgb(var(--amber-rgb) / .38), transparent 70%),
+      radial-gradient(55% 60% at 76% 55%, rgb(var(--amber-rgb) / .16), transparent 70%),
+      radial-gradient(40% 50% at 0% 100%, rgb(var(--rust-rgb) / .2), transparent 70%),
+      var(--night);
+  }
+  [data-festive="holi"] {
+    --band-paint: linear-gradient(90deg, var(--gulal-pink), var(--amber), var(--cobalt), var(--gulal-blue), var(--gulal-pink));
+  }
+  [data-festive="holi"] .hero {
+    background:
+      radial-gradient(35% 40% at 88% 18%, rgb(229 143 176 / .2), transparent 70%),
+      radial-gradient(35% 40% at 70% 85%, rgb(var(--amber-rgb) / .2), transparent 70%),
+      radial-gradient(35% 40% at 5% 95%, rgb(124 143 214 / .2), transparent 70%),
+      radial-gradient(55% 60% at 76% 55%, rgb(var(--cobalt-rgb) / .25), transparent 70%),
+      var(--night);
+  }
+
+  /* ── Toast (booking feedback) ── */
+  .toast {
+    position: fixed; z-index: 120; left: 50%;
+    bottom: calc(var(--s5) + env(safe-area-inset-bottom));
+    display: flex; align-items: center; gap: var(--s3);
+    width: max-content; max-width: calc(100vw - 32px);
+    padding: 12px 18px 12px 12px;
+    background: var(--primary); color: var(--on-primary);
+    border: 1px solid rgb(var(--ivory-rgb) / .2);
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-3);
+    font-size: .875rem; font-weight: 500;
+    transform: translate(-50%, 16px); opacity: 0; visibility: hidden;
+    transition: transform 360ms var(--ease), opacity 360ms var(--ease), visibility 0s linear 360ms;
+  }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; visibility: visible; transition-delay: 0s; }
+  .toast-icon { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--highlight); color: var(--primary); flex-shrink: 0; }
+  .toast-icon .icon { width: 14px; height: 14px; stroke-width: 2.5; }
+  @media (max-width: 920px) { .toast { bottom: calc(84px + env(safe-area-inset-bottom)); } }
+
+  /* ════════════════════════════════════════════════
+     MOBILE BOOKING BAR
+     ════════════════════════════════════════════════ */
+  .book-bar {
+    position: fixed; z-index: 90;
+    left: var(--s3); right: var(--s3);
+    bottom: calc(var(--s3) + env(safe-area-inset-bottom));
+    display: none;
+    align-items: center; gap: var(--s3);
+    padding: 8px 8px 8px 18px;
+    background: rgb(var(--night-rgb) / .96);
+    border: 1px solid var(--on-primary-3);
+    backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-radius: var(--r-pill);
+    box-shadow: var(--shadow-3);
+    color: var(--on-primary);
+    transform: translateY(calc(100% + 24px));
+    transition: transform 420ms var(--ease);
+  }
+  .book-bar.show { transform: none; }
+  .book-bar-text { flex: 1; min-width: 0; line-height: 1.25; }
+  .book-bar-text strong { display: block; font-size: .875rem; font-weight: 600; }
+  .book-bar-text span { display: block; font-size: .75rem; color: var(--on-primary-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .book-bar .btn { min-height: 44px; }
+
+  /* ════════════════════════════════════════════════
+     REVEAL MOTION
+     ════════════════════════════════════════════════ */
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 700ms var(--ease), transform 700ms var(--ease);
+    transition-delay: calc(var(--d, 0) * 70ms);
+  }
+  .js .reveal.in { opacity: 1; transform: none; }
+
+  .js .hero .reveal { transition-duration: 900ms; }
+  .js .portrait.reveal { transform: translateY(14px) scale(.985); }
+  .js .portrait.reveal.in { transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+    .js .reveal { opacity: 1; transform: none; }
+  }
+
+  /* ════════════════════════════════════════════════
+     RESPONSIVE
+     ════════════════════════════════════════════════ */
+  @media (max-width: 1080px) {
+    .outcome-grid { grid-template-columns: repeat(2, 1fr); }
+    .nav-links a { padding: 8px 10px; }
+  }
+
+  @media (max-width: 920px) {
+    .nav-links, .nav-cta { display: none; }
+    .burger { display: inline-flex; }
+    .book-bar { display: flex; }
+
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-media { order: -1; }
+    .portrait { width: min(78%, 340px); }
+    .portrait-tag { left: 50%; transform: translateX(-50%); bottom: -20px; white-space: nowrap; }
+    .hero-copy { text-align: center; }
+    .hero .lede, .trust { margin-inline: auto; }
+    .hero-actions { justify-content: center; }
+    .trust { text-align: left; }
+
+    .focus-grid { grid-template-columns: 1fr; }
+    .focus-head { position: static; }
+
+    .coach-grid { grid-template-columns: 1fr; }
+    .coach-media { max-width: 440px; width: 100%; margin-inline: auto; }
+    .quote-card { right: var(--s4); left: var(--s4); max-width: none; }
+
+    .journey-grid { grid-template-columns: 1fr; max-width: 560px; margin-inline: auto; }
+
+    .footer-grid { grid-template-columns: repeat(3, 1fr); }
+    .footer-brand { grid-column: 1 / -1; }
+    .footer { padding-bottom: calc(var(--s10) + env(safe-area-inset-bottom)); }
+  }
+
+  @media (max-width: 600px) {
+    :root { --nav-h: 60px; }
+    .hero { padding-top: calc(var(--nav-h) + var(--s7)); }
+    .portrait { width: min(62%, 250px); }
+    .portrait-arch { inset: -10px -10px 10px 10px; }
+    .hero-grid { gap: var(--s8); }
+    .hero .eyebrow { margin-bottom: var(--s4); }
+    .hero-actions .btn { flex: 1 1 100%; }
+    .trust-item { padding-right: var(--s3); }
+    .trust-item + .trust-item { padding-left: var(--s3); }
+
+    .outcome-grid { grid-template-columns: 1fr; gap: var(--s3); }
+    .outcome { display: grid; grid-template-columns: 44px 1fr; column-gap: var(--s4); padding: var(--s5); }
+    .outcome-icon { margin-bottom: 0; grid-row: span 2; }
+
+    .focus-item { grid-template-columns: 40px 1fr; gap: var(--s3); }
+    .focus-num { font-size: 1.25rem; }
+
+    .certs-row { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .coach-photo { aspect-ratio: 1 / 1.05; }
+    .coach-actions .btn { flex: 1 1 100%; }
+
+    .contact-card { margin-inline: calc(var(--gutter) * -1 + 8px); }
+    .contact-actions .btn { width: 100%; }
+
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: var(--s6); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Icon sprite (Lucide, ISC) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 7h10v10M7 17 17 7"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m16.24 7.76-1.8 5.41a2 2 0 0 1-1.27 1.27l-5.41 1.8 1.8-5.41a2 2 0 0 1 1.27-1.27z"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-sparkles" viewBox="0 0 24 24"><path d="M9.94 15.5A2 2 0 0 0 8.5 14.06l-6.14-1.58a.5.5 0 0 1 0-.96L8.5 9.94A2 2 0 0 0 9.94 8.5l1.58-6.14a.5.5 0 0 1 .96 0l1.58 6.14a2 2 0 0 0 1.44 1.44l6.14 1.58a.5.5 0 0 1 0 .96l-6.14 1.58a2 2 0 0 0-1.44 1.44l-1.58 6.14a.5.5 0 0 1-.96 0z"/><path d="M20 3v4M22 5h-4"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M16 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2zM5 3a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2 1 1 0 0 1 1 1v1a2 2 0 0 1-2 2 1 1 0 0 0-1 1v2a1 1 0 0 0 1 1 6 6 0 0 0 6-6V5a2 2 0 0 0-2-2z"/></symbol>
+    <symbol id="i-badge-check" viewBox="0 0 24 24"><path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17"/><path d="m10 15 5-3-5-3z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></symbol>
+    <!-- Brand mark: a sun rising over the horizon -->
+    <symbol id="mark" viewBox="0 0 32 32"><circle cx="16" cy="16" r="15" fill="none" stroke="currentColor" stroke-width="1.25"/><path d="M8.5 19.5a7.5 7.5 0 0 1 15 0" fill="none" style="stroke: var(--highlight)" stroke-width="1.75" stroke-linecap="round"/><path d="M5 19.5h22" stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/><path d="M16 7.5v2.5M9.6 10.1l1.5 1.5M22.4 10.1l-1.5 1.5" style="stroke: var(--highlight)" stroke-width="1.5" stroke-linecap="round"/><path d="M10.5 23h11M13 26h6" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" opacity=".55"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<!-- ─── NAV ─── -->
+<header class="nav on-night" id="nav">
+  <div class="container nav-inner">
+    <a href="#top" class="brand" aria-label="Preeti Yadav — home">
+      <svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg>
+      <span><b>Preeti</b> <i>Yadav</i></span>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="#achieve">Approach</a></li>
+        <li><a href="#focus">Services</a></li>
+        <li><a href="#coach">Meet Preeti</a></li>
+        <li><a href="#journey">Journey</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-primary btn-sm nav-cta" target="_blank" rel="noopener">
+      <svg class="icon icon-sm" aria-hidden="true"><use href="#i-calendar"/></svg>
+      Book a session
+    </a>
+    <button class="burger" id="burger" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Open menu">
+      <svg class="icon i-open" aria-hidden="true"><use href="#i-menu"/></svg>
+      <svg class="icon i-close" aria-hidden="true"><use href="#i-x"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="sheet" id="sheet" aria-label="Menu">
+  <ul>
+    <li><a class="sheet-link" href="#achieve">Approach <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+    <li><a class="sheet-link" href="#focus">Services <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+    <li><a class="sheet-link" href="#coach">Meet Preeti <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+    <li><a class="sheet-link" href="#journey">Journey <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+    <li><a class="sheet-link" href="#contact">Contact <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a></li>
+  </ul>
+  <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+    <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+    Book an appointment
+  </a>
+</div>
+
+<main id="main">
+
+<!-- ─── HERO ─── -->
+<section class="hero on-night" id="top">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <p class="festive-note" id="festiveNote"><span class="festive-dot" aria-hidden="true"></span><span></span></p>
+      <p class="eyebrow reveal">Energy Transformation Coach</p>
+      <h1 class="display reveal" style="--d:1">From <em>silent</em> struggles to soulful success</h1>
+      <p class="lede reveal" style="--d:2">Soulpreneurs Transformation Hub — a sanctuary for self-discovery, inner alignment, and empowered leadership for professionals, entrepreneurs, and spiritual seekers.</p>
+      <div class="hero-actions reveal" style="--d:3" id="heroActions">
+        <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          Book an appointment
+          <svg class="icon icon-trail" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </a>
+        <a href="#focus" class="btn btn-ghost btn-lg">Explore services</a>
+      </div>
+      <dl class="trust reveal" style="--d:4">
+        <div class="trust-item">
+          <dt class="trust-label">Years of experience</dt>
+          <dd class="trust-num"><span class="count-up" data-target="15">15</span><sup>+</sup></dd>
+        </div>
+        <div class="trust-item">
+          <dt class="trust-label">Happy clients</dt>
+          <dd class="trust-num"><span class="count-up" data-target="200">200</span><sup>+</sup></dd>
+        </div>
+        <div class="trust-item">
+          <dt class="trust-label">Certifications</dt>
+          <dd class="trust-num"><span class="count-up" data-target="8">8</span></dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="hero-media">
+      <figure class="portrait reveal" style="--d:2">
+        <div class="portrait-arch" aria-hidden="true"></div>
+        <div class="portrait-frame">
+          <div class="portrait-sun" aria-hidden="true"></div>
+          <img src="https://preetiyadav.com/wp-content/uploads/2025/10/preti-one.png" alt="Portrait of Preeti Yadav" width="440" height="550" fetchpriority="high" />
+        </div>
+        <figcaption class="portrait-tag">
+          <span class="portrait-tag-icon"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-badge-check"/></svg></span>
+          <span class="portrait-tag-text"><strong>Preeti Yadav</strong><span>Founder, Soulpreneurs Hub</span></span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<div class="band" aria-hidden="true"></div>
+
+<!-- ─── WHAT WE HELP YOU ACHIEVE ─── -->
+<section class="section outcomes" id="achieve" aria-labelledby="achieve-title">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow reveal">What we offer</p>
+      <h2 class="h2 reveal" style="--d:1" id="achieve-title">What we help you <em>achieve</em></h2>
+      <p class="lede muted reveal" style="--d:2">Tools, guidance, and energy-aligned practices for lasting transformation.</p>
+    </div>
+    <ul class="outcome-grid">
+      <li class="outcome reveal">
+        <div class="outcome-icon"><svg class="icon" aria-hidden="true"><use href="#i-compass"/></svg></div>
+        <h3 class="h3">Clarity of Vision</h3>
+        <p>Cut through the noise and rediscover your authentic goals with focused intention and energy work.</p>
+      </li>
+      <li class="outcome reveal" style="--d:1">
+        <div class="outcome-icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></div>
+        <h3 class="h3">Emotional Mastery</h3>
+        <p>Heal from burnout, stress, and self-doubt with powerful, energy-aligned tools designed for lasting relief.</p>
+      </li>
+      <li class="outcome reveal" style="--d:2">
+        <div class="outcome-icon"><svg class="icon" aria-hidden="true"><use href="#i-users"/></svg></div>
+        <h3 class="h3">Aligned Leadership</h3>
+        <p>Foster intentional communication and emotional intelligence to enhance personal and professional relationships.</p>
+      </li>
+      <li class="outcome reveal" style="--d:3">
+        <div class="outcome-icon"><svg class="icon" aria-hidden="true"><use href="#i-sparkles"/></svg></div>
+        <h3 class="h3">Abundant Living</h3>
+        <p>Learn to shift your energy and mindset to attract joy, success, and fulfillment into every area of your life.</p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ─── FOCUS AREAS ─── -->
+<section class="section focus on-night" id="focus" aria-labelledby="focus-title">
+  <div class="container focus-grid">
+    <div class="focus-head">
+      <p class="eyebrow reveal">Signature focus areas</p>
+      <h2 class="h2 reveal" style="--d:1" id="focus-title">At Soulpreneurs, we believe <em>true change starts within</em></h2>
+      <p class="lede reveal" style="--d:2">If you're seeking purpose, balance, or support — you're in the right place.</p>
+      <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-light reveal" style="--d:3" target="_blank" rel="noopener">
+        Book a session
+        <svg class="icon icon-trail" aria-hidden="true"><use href="#i-arrow-up-right"/></svg>
+      </a>
+    </div>
+    <ol class="focus-list">
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">01</span>
+        <div><h3 class="h3">Leadership &amp; Energy Alignment</h3>
+        <p>Unlock your highest potential by aligning your inner energy with outer action. Build confidence and clarity to lead authentically.</p></div>
+      </li>
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">02</span>
+        <div><h3 class="h3">Work-Life Balance &amp; Emotional Intelligence</h3>
+        <p>Stay centered and resilient in high-pressure environments. Build stronger relationships by mastering emotional awareness.</p></div>
+      </li>
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">03</span>
+        <div><h3 class="h3">Manifestation &amp; Abundance Coaching</h3>
+        <p>Co-create your reality with intention. Tap into energy alignment techniques to invite prosperity, purpose, and peace.</p></div>
+      </li>
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">04</span>
+        <div><h3 class="h3">Supporting High-Stress Professionals</h3>
+        <p>Specializing in demanding fields — helping professionals realign with purpose, regain control, and rediscover fulfillment.</p></div>
+      </li>
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">05</span>
+        <div><h3 class="h3">Mindfulness &amp; Nervous System Regulation</h3>
+        <p>Practical tools like breathwork, meditation, and somatic techniques to calm your nervous system and restore inner harmony.</p></div>
+      </li>
+      <li class="focus-item reveal">
+        <span class="focus-num" aria-hidden="true">06</span>
+        <div><h3 class="h3">Authentic Communication &amp; Presence</h3>
+        <p>Speak and lead from your core truth. Enhance your impact through intentional language and grounded, embodied presence.</p></div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ─── MEET THE COACH ─── -->
+<section class="section coach" id="coach" aria-labelledby="coach-title">
+  <div class="container coach-grid">
+    <div class="coach-media reveal">
+      <div class="coach-photo">
+        <img src="https://preetiyadav.com/wp-content/uploads/2025/10/PIC08213-scaled.jpg" alt="Preeti Yadav smiling" loading="lazy" width="440" height="550" />
+      </div>
+      <blockquote class="quote-card">
+        <svg class="icon" aria-hidden="true"><use href="#i-quote"/></svg>
+        <p>Transformation doesn't require decades. It starts with one decision.</p>
+      </blockquote>
+    </div>
+
+    <div class="coach-body">
+      <p class="eyebrow reveal">Meet the coach</p>
+      <h2 class="h2 reveal" style="--d:1" id="coach-title">I'm <em>Preeti Yadav</em></h2>
+      <p class="coach-role reveal" style="--d:1">Certified Energy Transformation Coach &amp; Leadership Mentor</p>
+      <p class="copy reveal" style="--d:2">A Certified Energy Transformation Coach and Leadership Mentor with over 15 years of experience. As the founder of Soulpreneurs Transformation Hub, Preeti specializes in guiding women, professionals, and spiritual seekers to rediscover their true selves and create balanced, purposeful lives.</p>
+      <p class="copy reveal" style="--d:2">Blending science, energy work, and spiritual wisdom, Preeti offers a holistic, compassionate approach to personal transformation and empowered leadership.</p>
+      <div class="coach-actions reveal" style="--d:3">
+        <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-dark" target="_blank" rel="noopener">
+          <svg class="icon icon-sm" aria-hidden="true"><use href="#i-calendar"/></svg>
+          Book an appointment
+        </a>
+        <a href="https://preetiyadav.com/about-us/" class="link" target="_blank" rel="noopener">Read her full story <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+      </div>
+      <div class="certs reveal" style="--d:4">
+        <p class="certs-label"><svg class="icon icon-sm" aria-hidden="true"><use href="#i-badge-check"/></svg> <span><span class="count-up" data-target="8">8</span> certifications &amp; accreditations</span></p>
+        <ul class="certs-row">
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/01.png" alt="Certification 1" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/02.png" alt="Certification 2" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/03.png" alt="Certification 3" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/04.png" alt="Certification 4" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/05.png" alt="Certification 5" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/06.png" alt="Certification 6" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/07.png" alt="Certification 7" loading="lazy" /></li>
+          <li class="cert"><img src="https://preetiyadav.com/wp-content/uploads/2025/10/08.png" alt="Certification 8" loading="lazy" /></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── JOURNEY ─── -->
+<section class="section journey" id="journey" aria-labelledby="journey-title">
+  <div class="container">
+    <div class="section-head center">
+      <p class="eyebrow reveal">Your journey</p>
+      <h2 class="h2 reveal" style="--d:1" id="journey-title">Your journey <em>starts now</em></h2>
+      <p class="lede muted reveal" style="--d:2">Transformation starts with one decision. One step. One choice to rise.</p>
+    </div>
+    <ol class="journey-grid">
+      <li class="stage reveal">
+        <div class="stage-media">
+          <img src="https://preetiyadav.com/wp-content/uploads/2025/10/Gemini_Generated_Image_x3krotx3krotx3kr.png" alt="" loading="lazy" />
+          <span class="stage-step">Step 01</span>
+        </div>
+        <div class="stage-body">
+          <h3 class="h3">Break through what's holding you back</h3>
+          <ul class="checks">
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Identify and release limiting beliefs &amp; emotional blocks</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Overcome self-doubt and perfectionism</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Break free from burnout cycles</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Reprogram old patterns keeping you stuck</li>
+          </ul>
+        </div>
+      </li>
+      <li class="stage reveal" style="--d:1">
+        <div class="stage-media">
+          <img src="https://preetiyadav.com/wp-content/uploads/2025/10/1760864729314.png" alt="" loading="lazy" />
+          <span class="stage-step">Step 02</span>
+        </div>
+        <div class="stage-body">
+          <h3 class="h3">Manifest the life you deeply desire</h3>
+          <ul class="checks">
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Develop emotional intelligence &amp; intentional communication</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Cultivate unshakable self-trust</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Show up as your true self in life &amp; leadership</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Shift from reactive stress to aligned confidence</li>
+          </ul>
+        </div>
+      </li>
+      <li class="stage reveal" style="--d:2">
+        <div class="stage-media">
+          <img src="https://preetiyadav.com/wp-content/uploads/2025/10/1760864854199.png" alt="" loading="lazy" />
+          <span class="stage-step">Step 03</span>
+        </div>
+        <div class="stage-body">
+          <h3 class="h3">Lead with authenticity instead of anxiety</h3>
+          <ul class="checks">
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Align your thoughts, energy, and actions</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Tap into spiritual and practical tools for abundance</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Set intentions that reflect your highest purpose</li>
+            <li><span class="check"><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg></span>Attract opportunities, joy, and peace</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <div class="journey-cta reveal">
+      <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+        Begin your transformation
+        <svg class="icon icon-trail" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="section contact on-night" id="contact" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-card">
+      <div class="contact-inner">
+        <svg class="contact-mark reveal" aria-hidden="true"><use href="#mark"/></svg>
+        <p class="eyebrow reveal">Get in touch</p>
+        <h2 class="h2 reveal" style="--d:1" id="contact-title">Arrange your <em>appointment now</em></h2>
+        <p class="lede reveal" style="--d:2">Start your journey to a more aligned, empowered you. Whether you have a question, want to join a program, or are simply curious — you're welcome here.</p>
+        <div class="contact-actions reveal" style="--d:3">
+          <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-light btn-lg" target="_blank" rel="noopener">
+            <svg class="icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+            Book an appointment
+          </a>
+          <a href="https://preetiyadav.com/courses/" class="link" target="_blank" rel="noopener">Or explore courses <svg class="icon icon-sm" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="band" aria-hidden="true"></div>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#top" class="brand" aria-label="Preeti Yadav — back to top">
+          <svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg>
+          <span><b>Preeti</b> <i>Yadav</i></span>
+        </a>
+        <p>Soulpreneurs Transformation Hub — a sanctuary for self-discovery, inner alignment, and empowered leadership.</p>
+        <div class="socials">
+          <a href="#" aria-label="YouTube"><svg class="icon" aria-hidden="true"><use href="#i-youtube"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a>
+          <a href="#" aria-label="Facebook"><svg class="icon" aria-hidden="true"><use href="#i-facebook"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg class="icon" aria-hidden="true"><use href="#i-linkedin"/></svg></a>
+        </div>
+      </div>
+      <nav aria-labelledby="f-services">
+        <h2 id="f-services">Services</h2>
+        <ul>
+          <li><a href="https://superprofile.bio/bookings/preetisoulpreneur" target="_blank" rel="noopener">Individual Coaching</a></li>
+          <li><a href="https://superprofile.bio/bookings/preetisoulpreneur" target="_blank" rel="noopener">Group Counseling</a></li>
+          <li><a href="https://superprofile.bio/bookings/preetisoulpreneur" target="_blank" rel="noopener">Mindfulness &amp; Meditation</a></li>
+          <li><a href="https://superprofile.bio/bookings/preetisoulpreneur" target="_blank" rel="noopener">Stress Management</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f-links">
+        <h2 id="f-links">Quick links</h2>
+        <ul>
+          <li><a href="https://preetiyadav.com/landing-page/" target="_blank" rel="noopener">Sacred Morning Rituals</a></li>
+          <li><a href="https://preetiyadav.com/courses/" target="_blank" rel="noopener">Courses</a></li>
+          <li><a href="https://preetiyadav.com/about-us/" target="_blank" rel="noopener">About Us</a></li>
+          <li><a href="https://preetiyadav.com/contact-us/" target="_blank" rel="noopener">Contact Us</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="f-connect">
+        <h2 id="f-connect">Connect</h2>
+        <ul>
+          <li><a href="https://preetiyadav.com/contact-us/" target="_blank" rel="noopener">Email Us</a></li>
+          <li><a href="https://superprofile.bio/bookings/preetisoulpreneur" target="_blank" rel="noopener">Book a Call</a></li>
+          <li><a href="#">Follow on Instagram</a></li>
+          <li><a href="#">YouTube Channel</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Preeti Yadav · Soulpreneurs Transformation Hub. All rights reserved.</span>
+      <span class="made"><svg aria-hidden="true"><use href="#mark"/></svg> Designed with intention</span>
+    </div>
+  </div>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  <span class="toast-icon" aria-hidden="true"><svg class="icon"><use href="#i-check"/></svg></span>
+  <span class="toast-text"></span>
+</div>
+
+<!-- Mobile booking bar -->
+<div class="book-bar" id="bookBar" aria-hidden="true">
+  <div class="book-bar-text">
+    <strong>Ready to begin?</strong>
+    <span>One decision. One step.</span>
+  </div>
+  <a href="https://superprofile.bio/bookings/preetisoulpreneur" class="btn btn-light" target="_blank" rel="noopener" tabindex="-1">
+    <svg class="icon icon-sm" aria-hidden="true"><use href="#i-calendar"/></svg>
+    Book
+  </a>
+</div>
+
+<script>
+(() => {
+  const root = document.documentElement;
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hasIO = 'IntersectionObserver' in window;
+  if (hasIO) root.classList.add('js');
+
+  // ─── Festive accents (opt-in): add ?festive=diwali or ?festive=holi to the URL
+  const festive = { diwali: 'Happy Diwali — wishing you light and new beginnings', holi: 'Happy Holi — here’s to colour and fresh starts' };
+  const f = new URLSearchParams(location.search).get('festive');
+  if (festive[f]) {
+    root.dataset.festive = f;
+    document.querySelector('#festiveNote span:last-child').textContent = festive[f];
+  }
+
+  // ─── Booking feedback toast
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  document.querySelectorAll('a[href*="superprofile.bio"]').forEach((a) => a.addEventListener('click', () => {
+    toast.querySelector('.toast-text').textContent = 'Opening the booking page in a new tab';
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 3200);
+  }));
+
+  // ─── Image fallbacks
+  const fallback = (img) => {
+    const box = img.parentElement;
+    if (box.classList.contains('no-img')) return;
+    box.classList.add('no-img');
+    const id = box.classList.contains('cert') ? 'i-badge-check' : 'mark';
+    box.insertAdjacentHTML('beforeend', `<span class="fallback" aria-hidden="true"><svg><use href="#${id}"/></svg></span>`);
+  };
+  document.querySelectorAll('main img').forEach((img) => {
+    if (img.complete && !img.naturalWidth) fallback(img);
+    else img.addEventListener('error', () => fallback(img), { once: true });
+  });
+
+  // ─── Nav border on scroll
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  // ─── Scroll reveal
+  if (hasIO) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+  }
+
+  // ─── Count-up (eased)
+  const animateCount = (el) => {
+    const target = +el.dataset.target;
+    if (reduceMotion) { el.textContent = target; return; }
+    const duration = 1400;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = Math.round(eased * target);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    el.textContent = 0;
+    requestAnimationFrame(tick);
+  };
+  if (hasIO) {
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) { animateCount(e.target); countIO.unobserve(e.target); }
+      });
+    }, { threshold: 0.5 });
+    document.querySelectorAll('.count-up').forEach((el) => countIO.observe(el));
+  }
+
+  // ─── Mobile menu
+  const burger = document.getElementById('burger');
+  const sheet = document.getElementById('sheet');
+  const setMenu = (open) => {
+    burger.setAttribute('aria-expanded', open);
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    sheet.classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+    if (open) sheet.querySelector('a').focus({ preventScroll: true });
+  };
+  burger.addEventListener('click', () => setMenu(burger.getAttribute('aria-expanded') !== 'true'));
+  sheet.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && sheet.classList.contains('open')) { setMenu(false); burger.focus(); }
+  });
+  window.matchMedia('(min-width: 921px)').addEventListener('change', (m) => { if (m.matches) setMenu(false); });
+
+  // ─── Active section in nav
+  const links = [...document.querySelectorAll('.nav-links a')];
+  const sections = links.map((a) => document.querySelector(a.getAttribute('href')));
+  if (hasIO) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const id = '#' + e.target.id;
+        links.forEach((a) => {
+          if (a.getAttribute('href') === id) a.setAttribute('aria-current', 'true');
+          else a.removeAttribute('aria-current');
+        });
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    sections.forEach((s) => s && spy.observe(s));
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) links.forEach((a) => a.removeAttribute('aria-current'));
+    }, { rootMargin: '-45% 0px -50% 0px' }).observe(document.getElementById('top'));
+  }
+
+  // ─── Mobile booking bar: show after hero CTAs scroll away, hide near contact
+  const bar = document.getElementById('bookBar');
+  const barLink = bar.querySelector('a');
+  if (hasIO) {
+    let pastHero = false, atContact = false;
+    const update = () => {
+      const show = pastHero && !atContact;
+      bar.classList.toggle('show', show);
+      bar.setAttribute('aria-hidden', !show);
+      barLink.tabIndex = show ? 0 : -1;
+    };
+    new IntersectionObserver(([e]) => {
+      pastHero = !e.isIntersecting && e.boundingClientRect.top < 0; update();
+    }).observe(document.getElementById('heroActions'));
+    new IntersectionObserver(([e]) => {
+      atContact = e.isIntersecting; update();
+    }, { rootMargin: '0px 0px -10% 0px' }).observe(document.getElementById('contact'));
+  }
+})();
+</script>
+</body>
+</html>
